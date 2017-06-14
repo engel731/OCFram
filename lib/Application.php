@@ -5,9 +5,11 @@ abstract class Application
 {
   protected $httpRequest;
   protected $httpResponse;
-  protected $name;
   protected $user;
   protected $config;
+
+  protected $name;
+  protected $applicationPath;
 
   public function __construct()
   {
@@ -17,6 +19,7 @@ abstract class Application
     $this->config = new Config($this);
 
     $this->name = '';
+    $this->applicationPath = '';
   }
 
   public function getController()
@@ -24,7 +27,7 @@ abstract class Application
     $router = new Router;
 
     $xml = new \DOMDocument;
-    $xml->load(__DIR__.'/../../App/'.$this->name.'/Config/routes.xml');
+    $xml->load($this->applicationPath.'/Config/routes.xml');
 
     $routes = $xml->getElementsByTagName('route');
 
@@ -80,6 +83,11 @@ abstract class Application
   public function name()
   {
     return $this->name;
+  }
+
+  public function applicationPath()
+  {
+    return $this->applicationPath;
   }
 
   public function config()
