@@ -3,6 +3,7 @@ namespace OCFram;
 
 class Page extends ApplicationComponent
 {
+  protected $content = null;
   protected $contentFile;
   protected $vars = [];
 
@@ -22,18 +23,38 @@ class Page extends ApplicationComponent
     {
       throw new \RuntimeException('La vue spécifiée n\'existe pas');
     }
-
+ 
     $user = $this->app->user();
-
+ 
     extract($this->vars);
+ 
+    if ($this->content === null)
+    {
+      ob_start();
+        require $this->contentFile;
+      $this->content = ob_get_clean();
+    }
 
-    ob_start();
-      require $this->contentFile;
-    $content = ob_get_clean();
+    $content = $this->content;
 
     ob_start();
       require $this->app->applicationPath().'/Templates/layout.php';
     return ob_get_clean();
+  }
+
+  public function content()
+  {
+    return $this->content;
+  }
+  
+  public function setContent($content)
+  {
+    if (!is_string($content))
+    {
+      throw new \InvalidArgumentException('Le contenu de la page doit être une chaine de caractères');
+    }
+    
+    $this->content = $content;
   }
 
   public function setContentFile($contentFile)

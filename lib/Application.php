@@ -17,6 +17,7 @@ abstract class Application
     $this->httpResponse = new HTTPResponse($this);
     $this->user = new User($this);
     $this->config = new Config($this);
+    $this->cach = new Cach($_SERVER['DOCUMENT_ROOT'].'/../tmp/cach');
 
     $this->name = '';
     $this->applicationPath = '';
@@ -98,5 +99,10 @@ abstract class Application
   public function user()
   {
     return $this->user;
+  }
+
+  public function cach() 
+  {
+    return $this->cach;
   }
 }
