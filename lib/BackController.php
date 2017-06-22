@@ -33,11 +33,6 @@ abstract class BackController extends ApplicationComponent
     $this->$method($this->app->httpRequest());
   }
 
-  public function page()
-  {
-    return $this->page;
-  }
-
   public function setModule($module)
   {
     if (!is_string($module) || empty($module))
@@ -69,4 +64,8 @@ abstract class BackController extends ApplicationComponent
 
     $this->page->setContentFile($this->app->applicationPath().'/Modules/'.$this->module.'/Views/'.$this->view.'.php');
   }
+
+  public function page()   { return $this->page;   }
+  public function module() { return $this->module; }
+  public function view()   { return $this->view;   }
 }
