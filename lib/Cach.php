@@ -18,18 +18,21 @@ class Cach
 
 	public function generateFile($fileName, $resource, \DateInterval $expirationDate) 
 	{
-		$resourceType = (is_string($resource)) ? self::VUES : self::DONNEES;
-		$filePath = $this->getFilePath($fileName, $resourceType);
+		if(file_exists($this->directoryPath)) 
+		{
+			$resourceType = (is_string($resource)) ? self::VUES : self::DONNEES;
+			$filePath = $this->getFilePath($fileName, $resourceType);
 
-		$date = new \DateTime();
-		$date->add($expirationDate);
-		$expirationDate = $date->format('Y-m-d H:i');
-		
-		$data = $expirationDate.PHP_EOL;
-		$data .= ($resourceType == self::DONNEES) ? serialize($resource) : $resource;
-		file_put_contents($filePath, $data);
+			$date = new \DateTime();
+			$date->add($expirationDate);
+			$expirationDate = $date->format('Y-m-d H:i');
+			
+			$data = $expirationDate.PHP_EOL;
+			$data .= ($resourceType == self::DONNEES) ? serialize($resource) : $resource;
+			file_put_contents($filePath, $data);
 
-		return $this;
+			return $this;
+		}
 	}
 
 	public function loadFileData($fileName) 
