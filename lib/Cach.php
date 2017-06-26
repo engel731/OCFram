@@ -33,6 +33,8 @@ class Cach
 
 			return $this;
 		}
+
+		return $this;
 	}
 
 	public function loadFileData($fileName) 
