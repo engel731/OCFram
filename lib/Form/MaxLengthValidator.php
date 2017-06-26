@@ -1,5 +1,7 @@
 <?php
-namespace OCFram;
+namespace OCFram\Form;
+
+use \OCFram\Validator;
 
 class MaxLengthValidator extends Validator
 {

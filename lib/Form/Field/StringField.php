@@ -1,5 +1,7 @@
 <?php
-namespace OCFram;
+namespace OCFram\Form\Field;
+
+use \OCFram\Field;
 
 class StringField extends Field
 {

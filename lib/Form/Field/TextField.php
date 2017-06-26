@@ -1,7 +1,9 @@
 <?php
-namespace OCFram;
+namespace OCFram\Form\Field;
 
-class TinymceField extends Field
+use \OCFram\Field;
+
+class TextField extends Field
 {
   protected $cols;
   protected $rows;
@@ -15,7 +17,7 @@ class TinymceField extends Field
       $widget .= $this->errorMessage.'<br />';
     }
     
-    $widget .= '<label>'.$this->label.'</label><textarea class"tinymce" name="'.$this->name.'"';
+    $widget .= '<label>'.$this->label.'</label><textarea name="'.$this->name.'"';
     
     if (!empty($this->cols))
     {
