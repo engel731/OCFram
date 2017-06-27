@@ -1,5 +1,5 @@
 <?php
-namespace OCFram\Form\Field;
+namespace OCFram\Form\BootstrapField;
 
 use \OCFram\Field;
 
