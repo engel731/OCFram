@@ -9,26 +9,27 @@ class StringField extends Field
   
   public function buildWidget()
   {
-    $widget = '';
-    
-    if (!empty($this->errorMessage))
-    {
-      $widget .= $this->errorMessage.'<br />';
-    }
-    
-    $widget .= '<div class="form-group"><label class="col-md-4 control-label" for="'.$this->name.'">'.$this->label.'</label><div class="col-md-4"><input id="'.$this->name.'" type="text" name="'.$this->name.'"';
+    $widget = (!empty($this->errorMessage)) ?  '<div class="form-group has-error">' : '<div class="form-group">';
+    $widget .= '<label class="control-label" for="'.$this->name.'">'.$this->label.'</label><input class="form-control" id="'.$this->name.'" type="text" name="'.$this->name.'" aria-describedby="help-'.$this->name.'"';
     
     if (!empty($this->value))
     {
       $widget .= ' value="'.htmlspecialchars($this->value).'"';
     }
-    
+
     if (!empty($this->maxLength))
     {
       $widget .= ' maxlength="'.$this->maxLength.'"';
     }
+
+    $widget .= '/>';
+
+    if (!empty($this->errorMessage))
+    {
+      $widget .= '<span id="help-'.$this->name.'" class="help-block">'.$this->errorMessage.'</span>';
+    }
     
-    return $widget .= ' /></div></div>';
+    return $widget .= '</div>';
   }
   
   public function setMaxLength($maxLength)

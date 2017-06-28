@@ -10,14 +10,8 @@ class TextField extends Field
   
   public function buildWidget()
   {
-    $widget = '';
-    
-    if (!empty($this->errorMessage))
-    {
-      $widget .= $this->errorMessage.'<br />';
-    }
-    
-    $widget .= '<div class="form-group"><label class="col-md-4 control-label" for="'.$this->name.'">'.$this->label.'</label><div class="col-md-4"><textarea class="form-control" id="'.$this->name.'" name="'.$this->name.'"';
+    $widget = (!empty($this->errorMessage)) ?  '<div class="form-group has-error">' : '<div class="form-group">';
+    $widget .= '<label class="control-label" for="'.$this->name.'">'.$this->label.'</label><textarea class="form-control" id="'.$this->name.'" name="'.$this->name.'" aria-describedby="help-'.$this->name.'"';
     
     if (!empty($this->cols))
     {
@@ -35,8 +29,15 @@ class TextField extends Field
     {
       $widget .= htmlspecialchars($this->value);
     }
+
+    $widget .= '</textarea>';
+
+    if (!empty($this->errorMessage))
+    {
+      $widget .= '<span id="help-'.$this->name.'" class="help-block">'.$this->errorMessage.'</span>';
+    }
     
-    return $widget.'</textarea></div></div>';
+    return $widget.'</div>';
   }
   
   public function setCols($cols)
