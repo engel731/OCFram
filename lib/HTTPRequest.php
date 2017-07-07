@@ -23,6 +23,16 @@ class HTTPRequest extends ApplicationComponent
     return isset($_GET[$key]);
   }
 
+  public function getFile($key)
+  {
+    return isset($_FILES[$key]) ? $_FILES[$key] : null;
+  }
+
+  public function fileExists($key)
+  {
+    return isset($_FILES[$key]);
+  }
+
   public function method()
   {
     return $_SERVER['REQUEST_METHOD'];

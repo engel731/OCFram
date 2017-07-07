@@ -14,6 +14,6 @@ class FileField extends Field
       $widget .= $this->errorMessage.'<br />';
     }
     
-    return $widget .= '<label>'.$this->label.'</label><input type="file" name="'.$this->name.'" />';
+    return $widget .= '<label>'.$this->label.'</label><input type="file" name="'.$this->name.'" /><br />';
   }
 }

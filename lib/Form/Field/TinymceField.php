@@ -17,7 +17,7 @@ class TinymceField extends Field
       $widget .= $this->errorMessage.'<br />';
     }
     
-    $widget .= '<label>'.$this->label.'</label><textarea class"tinymce" name="'.$this->name.'"';
+    $widget .= '<label>'.$this->label.'</label><textarea class="tinymce" name="'.$this->name.'"';
     
     if (!empty($this->cols))
     {
@@ -36,7 +36,7 @@ class TinymceField extends Field
       $widget .= htmlspecialchars($this->value);
     }
     
-    return $widget.'</textarea>';
+    return $widget.'</textarea><br />';
   }
   
   public function setCols($cols)
