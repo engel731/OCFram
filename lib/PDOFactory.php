@@ -5,7 +5,7 @@ class PDOFactory
 {
   public static function getMysqlConnexion()
   {
-    $db = new \PDO('mysql:host=localhost;dbname=news', 'root', '');
+    $db = new \PDO('mysql:host=localhost;dbname=jeanforteroche', 'jeanForteroche', 'secret');
     $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     
     return $db;

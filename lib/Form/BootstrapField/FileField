@@ -1,0 +1,20 @@
+<?php
+namespace OCFram\Form\BootstrapField;
+
+use \OCFram\Field;
+
+class FileField extends Field
+{
+  public function buildWidget()
+  {
+    $widget = (!empty($this->errorMessage)) ?  '<div class="form-group has-error">' : '<div class="form-group">';
+    $widget .= '<label class="control-label" for="'.$this->name.'">'.$this->label.'</label><input class="form-control" id="'.$this->name.'" type="file" name="'.$this->name.'" aria-describedby="help-'.$this->name.'" />';
+    
+    if (!empty($this->errorMessage))
+    {
+      $widget .= '<span id="help-'.$this->name.'" class="help-block">'.$this->errorMessage.'</span>';
+    }
+    
+    return $widget .= '</div>';
+  }
+}
