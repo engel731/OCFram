@@ -25,12 +25,12 @@ class HTTPRequest extends ApplicationComponent
 
   public function getFile($key)
   {
-    return isset($_FILES[$key]) ? $_FILES[$key] : null;
+    return (!isset($_FILES[$key]) OR $_FILES[$key]['error'] > 0) ? null : $_FILES[$key];
   }
 
   public function fileExists($key)
   {
-    return isset($_FILES[$key]);
+    return (!isset($_FILES[$key]) OR $_FILES[$key]['error'] > 0) ? FALSE : TRUE;
   }
 
   public function method()
