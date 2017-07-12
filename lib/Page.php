@@ -25,6 +25,7 @@ class Page extends ApplicationComponent
     }
  
     $user = $this->app->user();
+    $widgets = $this->app->widgets();
  
     extract($this->vars);
  
