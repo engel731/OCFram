@@ -2,6 +2,10 @@
 
 namespace OCFram\APIFram;
 
+use OCFram\HTTPRequest;
+use OCFram\HTTPResponse;
+use OCFram\Router;
+
 abstract class Api 
 {
     protected $httpRequest;
@@ -10,7 +14,16 @@ abstract class Api
     
     protected $name;
 
-    abstract public function createRoute();
+    public function __construct()
+    {
+        $this->httpRequest = new HTTPRequest($this);
+        $this->httpResponse = new HTTPResponse($this);
+        $this->router = new Router();
+
+        $this->name = '';
+    }
+
+    abstract public function init();
     
     public function getController() {
         try {
