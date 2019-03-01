@@ -1,6 +1,6 @@
 <?php
 
-namespace OCFram\Api;
+namespace OCFram\APIFram;
 
 abstract class Api 
 {

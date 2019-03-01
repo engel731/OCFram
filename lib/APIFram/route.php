@@ -1,5 +1,5 @@
 <?php
-namespace OCFram\Api;
+namespace OCFram\APIFram;
 
 class Route
 {

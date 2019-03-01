@@ -1,5 +1,5 @@
 <?php
-namespace OCFram\Api;
+namespace OCFram\APIFram;
 
 use OCFram;
 
@@ -21,7 +21,7 @@ abstract class BackController extends ApplicationComponent
 
   public function execute()
   {
-    $method = 'get'.ucfirst($this->ressource);
+    $method = 'execute'.ucfirst($this->ressource);
 
     if (!is_callable([$this, $method]))
     {
