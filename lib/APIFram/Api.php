@@ -10,40 +10,54 @@ abstract class Api
 {
     protected $httpRequest;
     protected $httpResponse;
-    protected $router;
     
     protected $name;
+    protected $applicationPath;
 
     public function __construct()
     {
         $this->httpRequest = new HTTPRequest($this);
         $this->httpResponse = new HTTPResponse($this);
-        $this->router = new Router();
 
         $this->name = '';
+        $this->applicationPath = '';
     }
-
-    abstract public function init();
     
     public function getController() {
+        $router = new Router;
+
+        $xml = new \DOMDocument;
+        $xml->load($this->applicationPath.'/Config/routes.api.xml');
+        
+        $routes = $xml->getElementsByTagName('route');
+      
+        foreach ($routes as $route) {
+            $vars = [];
+
+            if ($route->hasAttribute('vars')) {
+                $vars = explode(',', $route->getAttribute('vars'));
+            }
+
+            $router->addRoute(new Route($route->getAttribute('method'), $route->getAttribute('url'), $route->getAttribute('ressources'), $route->getAttribute('function'), $vars));
+        }
+        
         try {
-            $matchedRoute = $this->router->getRoute($this->httpRequest->requestURI());
+            $matchedRoute = $router->getRoute($this->httpRequest->requestURI());
         } catch (\RuntimeException $e)
         {
             if ($e->getCode() == Router::NO_ROUTE) {
-                //Renvoyer une erreur
+                $this->httpResponse->send(json_encode(array('status' => '404')));
             }
         }
         
         $_GET = array_merge($_GET, $matchedRoute->vars());
-
-        $controllerClass = 'App\\'.$this->name.'\\'.$matchedRoute->action().'Controller';
-        return new $controllerClass($this, $matchedRoute->ressources());
+        
+        $accessorClass = 'App\\'.$this->name.'\\Ressources\\'.$matchedRoute->ressources().'Accessor';
+        return new $accessorClass($this, $matchedRoute->action(), $matchedRoute->ressources(), $matchedRoute->getFunction());
     }
 
     abstract public function run();
 
-    public function router() { return $this->router; }
     public function httpRequest() { return $this->httpRequest; }
     public function httpResponse() { return $this->httpResponse; }
     public function name() { return $this->name; }
