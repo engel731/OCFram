@@ -31,6 +31,23 @@ abstract class Entity implements \ArrayAccess
     return $this->id;
   }
 
+  public function object_to_array()
+  {
+    if (is_array($this) || is_object($this))
+    {
+      $result = array();
+      
+      foreach ($this as $key => $value)
+      {
+        $result[$key] = $this->$key;
+      }
+
+      return $result;
+    }
+    
+    return $this;
+  }
+
   public function setId($id)
   {
     $this->id = (int) $id;
