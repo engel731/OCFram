@@ -30,7 +30,7 @@ abstract class Application
     $router = new Router;
 
     $xml = new \DOMDocument;
-    $xml->load($this->applicationPath.'/Config/routes.xml');
+    $xml->load($this->applicationPath.'/Config/routes.app.xml');
 
     $routes = $xml->getElementsByTagName('route');
 
